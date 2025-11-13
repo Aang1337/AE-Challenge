@@ -3,21 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>After Effects Powerplay — 45 Day Complete View</title>
+    <title>After Effects Powerplay — Final (leave fixes)</title>
 
-    <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Flatpickr (dark theme) -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"
@@ -34,7 +29,6 @@
         --glass: rgba(255, 255, 255, 0.03);
         --danger: #ef4444;
         --card-radius: 14px;
-        --gallery-gap: 18px;
       }
       html,
       body {
@@ -66,10 +60,11 @@
         }
       }
 
-      /* Header / compact */
+      /* compact header */
       header {
         position: sticky;
         top: 0;
+        height: 90px;
         z-index: 60;
         background: rgba(2, 6, 6, 0.6);
         border-bottom: 1px solid rgba(255, 255, 255, 0.03);
@@ -79,7 +74,7 @@
       .container-main {
         max-width: 1200px;
         margin: 20px auto;
-        padding: 0 18px 120px;
+        padding: 0 18px 80px;
       }
       .brand {
         display: flex;
@@ -104,7 +99,6 @@
         margin-top: 2px;
       }
 
-      /* header icons */
       .header-icons {
         display: flex;
         align-items: center;
@@ -165,7 +159,6 @@
         border-color: rgba(239, 68, 68, 0.18);
       }
 
-      /* progress etc */
       .title-row {
         display: flex;
         align-items: center;
@@ -195,7 +188,6 @@
         color: var(--muted);
       }
 
-      /* grid & cards */
       .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -333,6 +325,7 @@
         display: inline-flex;
         gap: 8px;
         align-items: center;
+        text-decoration: none;
       }
       .form-control,
       textarea {
@@ -342,6 +335,7 @@
         border-radius: 8px;
         transition: all 0.18s ease-in-out;
       }
+
       .form-control::placeholder,
       textarea::placeholder {
         color: rgba(255, 255, 255, 0.36);
@@ -353,6 +347,11 @@
         box-shadow: 0 0 10px rgba(34, 197, 94, 0.18);
         color: #fff;
         outline: none;
+      }
+
+      .form-control:disabled {
+        background-color: #e9ecef00;
+        opacity: 1;
       }
       .submit-btn {
         background: linear-gradient(180deg, var(--accent-2), var(--accent));
@@ -533,206 +532,14 @@
         filter: invert(1) !important;
         opacity: 0.9;
       }
-      /* Gallery-specific styles (kept) */
-      .gallery-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px 18px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-      }
-      .gallery-controls {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .gallery-search {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255, 255, 255, 0.02);
-        padding: 8px;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.03);
-      }
-      .gallery-search input {
-        background: transparent;
-        border: 0;
-        color: var(--text);
-        outline: none;
-        width: 220px;
-        font-size: 14px;
-      }
-      .gallery-sort {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        padding: 0.45rem 0.6rem;
-        border-radius: 8px;
-        color: var(--muted);
-        font-weight: 700;
-      }
-      .gallery-count {
-        background: linear-gradient(90deg, #0f3b2a, #163d2a);
-        padding: 0.3rem 0.6rem;
-        border-radius: 999px;
-        color: #bff8d7;
-        font-weight: 800;
-        border: 1px solid rgba(34, 197, 94, 0.08);
-      }
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--gallery-gap);
-        padding: 18px;
-      }
-      @media (max-width: 1200px) {
-        .gallery-grid {
-          grid-template-columns: repeat(3, 1fr);
+      @media (max-width: 420px) {
+        .gif-wrapper {
+          width: 260px;
         }
-      }
-      @media (max-width: 900px) {
-        .gallery-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 520px) {
-        .gallery-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .gallery-card {
-        background: linear-gradient(
-          180deg,
-          rgba(7, 12, 12, 0.55),
-          rgba(3, 6, 6, 0.6)
-        );
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.03);
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
-      }
-      .gallery-thumb {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16/9;
-        object-fit: cover;
-        background: #0a0a0a;
-      }
-      .gallery-meta-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.01),
-          rgba(255, 255, 255, 0.01)
-        );
-      }
-      .gallery-day {
-        font-weight: 800;
-        color: #eafdf0;
-        font-size: 14px;
-      }
-      .gallery-date {
-        font-size: 12px;
-        color: var(--muted);
-      }
-      .play-overlay {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        pointer-events: none;
-      }
-      .play-overlay .overlay-shade {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.45)
-        );
-        transition: background 0.18s ease;
-      }
-      .play-overlay .play-button {
-        position: relative;
-        z-index: 2;
-        display: inline-grid;
-        place-items: center;
-        width: 72px;
-        height: 72px;
-        border-radius: 999px;
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.45),
-          rgba(0, 0, 0, 0.6)
-        );
-        border: 2px solid rgba(255, 255, 255, 0.06);
-        transform: scale(0.9);
-        transition: transform 0.18s ease, box-shadow 0.18s ease,
-          opacity 0.18s ease;
-        opacity: 0;
-      }
-      .gallery-card:hover .play-overlay .play-button,
-      .gallery-card:focus .play-overlay .play-button {
-        transform: scale(1);
-        opacity: 1;
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-      }
-      .gallery-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      }
-      .gallery-card:hover .overlay-shade {
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.12),
-          rgba(0, 0, 0, 0.5)
-        );
-      }
-      .gallery-empty {
-        padding: 36px;
-        text-align: center;
-        color: var(--muted);
-      }
-      .thumb-caption {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 12px;
-        font-size: 13px;
-        color: var(--muted);
-        background: rgba(0, 0, 0, 0.02);
-        border-top: 1px solid rgba(255, 255, 255, 0.01);
-      }
-      .thumb-caption .tag {
-        background: rgba(0, 0, 0, 0.25);
-        padding: 6px 8px;
-        border-radius: 8px;
-        color: #dff7ea;
-        font-weight: 700;
-        border: 1px solid rgba(255, 255, 255, 0.03);
-      }
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
       }
     </style>
   </head>
   <body>
-    <!-- HEADER -->
     <header id="section-header">
       <div
         class="container container-main d-flex justify-content-between align-items-center"
@@ -755,7 +562,6 @@
             📅
           </button>
           <input id="startDate" type="date" class="native-hidden" />
-
           <button
             id="pickFolderBtn"
             class="icon-btn"
@@ -810,7 +616,7 @@
     <main class="container-main">
       <div id="section-progress">
         <div class="title-row">
-          <div id="rangePill" class="range-pill">SHOWING 1 TO 45 OF 45</div>
+          <div id="rangePill" class="range-pill">SHOWING 1 TO 9 OF 45</div>
         </div>
 
         <div class="progress-card" id="progress-card">
@@ -826,16 +632,18 @@
               Only today's card is writable. Past and future cards stay locked.
               You can take up to 3 leave days without affecting progress.
             </div>
-            <div
-              class="badge bg-transparent text-muted"
-              id="progressBadge"
-              style="
-                border: 1px solid rgba(255, 255, 255, 0.03);
-                padding: 0.35rem 0.6rem;
-                border-radius: 8px;
-              "
-            >
-              0 of 45
+            <div style="display: flex; gap: 8px; align-items: center">
+              <div
+                class="badge bg-transparent text-muted"
+                id="progressBadge"
+                style="
+                  border: 1px solid rgba(255, 255, 255, 0.03);
+                  padding: 0.35rem 0.6rem;
+                  border-radius: 8px;
+                "
+              >
+                0 of 45
+              </div>
             </div>
           </div>
 
@@ -874,16 +682,13 @@
 
       <div id="section-grid">
         <div id="grid" class="grid" aria-live="polite"></div>
-        <!-- Pager intentionally hidden in full 45 view -->
         <div
           id="pager"
           class="pager mt-4 d-flex justify-content-center gap-2"
-          style="display: none"
         ></div>
       </div>
     </main>
 
-    <!-- CARD TEMPLATE -->
     <template id="day-card-raw">
       <article class="day-card">
         <div class="card-head">
@@ -929,7 +734,7 @@
       </article>
     </template>
 
-    <!-- Confirm / Leave / Success / Gallery / Player modals (unchanged markup reused) -->
+    <!-- Confirm Start -->
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -967,6 +772,7 @@
       </div>
     </div>
 
+    <!-- Leave confirm -->
     <div class="modal fade" id="leaveModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -1000,6 +806,7 @@
       </div>
     </div>
 
+    <!-- Leave success -->
     <div
       class="modal fade"
       id="leaveSuccessModal"
@@ -1036,6 +843,7 @@
       </div>
     </div>
 
+    <!-- Success modal -->
     <div
       class="modal fade success-modal"
       id="successModal"
@@ -1077,85 +885,25 @@
       </div>
     </div>
 
-    <!-- Gallery modal (redesigned) -->
+    <!-- Gallery modal -->
     <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-      <div
-        class="modal-dialog modal-xl modal-dialog-centered"
-        style="max-width: 1100px"
-      >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
-          <div class="gallery-header">
-            <div style="display: flex; align-items: center; gap: 14px">
-              <h5 class="modal-title mb-0">Video Gallery</h5>
-              <div class="small-muted" id="gallerySummary">
-                All saved videos appear here
-              </div>
-            </div>
-
-            <div class="gallery-controls">
-              <div
-                class="gallery-search"
-                role="search"
-                aria-label="Search gallery"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M21 21l-4.35-4.35"
-                    stroke="rgba(255,255,255,0.6)"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="6"
-                    stroke="rgba(255,255,255,0.6)"
-                    stroke-width="1.6"
-                  />
-                </svg>
-                <input
-                  id="gallerySearch"
-                  placeholder="Search day or date (e.g. Day 4 or Oct 01)"
-                />
-              </div>
-
-              <select
-                id="gallerySort"
-                class="gallery-sort"
-                aria-label="Sort videos"
-              >
-                <option value="day-asc">Day ↑</option>
-                <option value="day-desc">Day ↓</option>
-                <option value="date-asc">Date ↑</option>
-                <option value="date-desc">Date ↓</option>
-              </select>
-
-              <div class="gallery-count" id="galleryCount">0</div>
-            </div>
+          <div class="modal-header border-0">
+            <h5 class="modal-title">Video Gallery</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-
-          <div
-            class="modal-body text-muted"
-            style="max-height: 66vh; overflow: auto; padding: 0"
-          >
-            <div id="galleryEmpty" class="gallery-empty" style="display: none">
+          <div class="modal-body text-muted">
+            <div id="galleryEmpty" class="small-muted" style="display: none">
               No videos were found.
             </div>
-            <div
-              id="galleryGrid"
-              class="gallery-grid"
-              aria-live="polite"
-              tabindex="0"
-            ></div>
+            <div id="galleryGrid" class="gallery-grid"></div>
           </div>
-
           <div class="modal-footer border-0">
             <button
               id="closeGallery"
@@ -1216,7 +964,6 @@
       </div>
     </div>
 
-    <!-- Toast -->
     <div
       id="toast"
       role="status"
@@ -1237,7 +984,6 @@
       Saved
     </div>
 
-    <!-- Footer -->
     <footer
       class="site-footer"
       style="
@@ -1264,35 +1010,27 @@
       <span class="small-muted">Built for 45 day editing challenges</span>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-      /*
-  45-day complete version
-  - pageSize set to 45 so all days render at once
-  - pager hidden
-  - gallery redesign preserved
-  - other app logic preserved
-*/
       (() => {
-        // Config: show all 45 days
         const TOTAL_DAYS = 45;
         const STORAGE_KEY = "aepp-entries-v4";
         const START_KEY = "aepp-start-date-v1";
         const LEAVE_KEY = "aepp-leaves-v1";
+        const LAST_AUTOSAVE_KEY = "aepp-last-autosave-ts";
+        const HANDLE_DB_KEY = "aepp-save-dir-handle";
+        const AUTO_FILE_NAME = "aepp-data.json";
         const LEAVE_CAP = 3;
-        const pageSize = 45; // <- changed: full 45 days
+        const pageSize = 9;
 
-        // State
         let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
         let startDateStr = localStorage.getItem(START_KEY) || "";
         let leaves = JSON.parse(localStorage.getItem(LEAVE_KEY) || "[]");
         leaves = Array.from(new Set(leaves));
         let currentPage = 1;
 
-        // Elements
         const grid = document.getElementById("grid");
         const tplRaw = document.getElementById("day-card-raw");
         const rangePill = document.getElementById("rangePill");
@@ -1306,41 +1044,33 @@
         const progressBadge = document.getElementById("progressBadge");
 
         const galleryBtn = document.getElementById("galleryBtn");
-        const galleryModalEl = document.getElementById("galleryModal");
-        const galleryModal = new bootstrap.Modal(galleryModalEl);
-        const galleryGrid = document.getElementById("galleryGrid");
-        const galleryEmpty = document.getElementById("galleryEmpty");
-        const gallerySearch = document.getElementById("gallerySearch");
-        const gallerySort = document.getElementById("gallerySort");
-        const galleryCount = document.getElementById("galleryCount");
-        const gallerySummary = document.getElementById("gallerySummary");
 
         const playerModalEl = document.getElementById("playerModal");
         const playerModal = new bootstrap.Modal(playerModalEl);
         const playerIframe = document.getElementById("playerIframe");
         const playerTitle = document.getElementById("playerTitle");
 
-        const confirmModal = new bootstrap.Modal(
-          document.getElementById("confirmModal")
-        );
+        const confirmModalEl = document.getElementById("confirmModal");
+        const confirmModal = new bootstrap.Modal(confirmModalEl);
         const okConfirm = document.getElementById("okConfirm");
         const cancelConfirm = document.getElementById("cancelConfirm");
+        const confirmDateText = document.getElementById("confirmDateText");
 
-        const leaveModal = new bootstrap.Modal(
-          document.getElementById("leaveModal")
-        );
+        const leaveModalEl = document.getElementById("leaveModal");
+        const leaveModal = new bootstrap.Modal(leaveModalEl);
         const okLeave = document.getElementById("okLeave");
         const cancelLeave = document.getElementById("cancelLeave");
+        const leaveDayText = document.getElementById("leaveDayText");
 
-        const leaveSuccessModal = new bootstrap.Modal(
-          document.getElementById("leaveSuccessModal")
-        );
+        const leaveSuccessModalEl =
+          document.getElementById("leaveSuccessModal");
+        const leaveSuccessModal = new bootstrap.Modal(leaveSuccessModalEl);
         const leaveGif = document.getElementById("leaveGif");
         const leaveMsg = document.getElementById("leaveMsg");
+        const leaveOk = document.getElementById("leaveOk");
 
-        const successModal = new bootstrap.Modal(
-          document.getElementById("successModal")
-        );
+        const successModalEl = document.getElementById("successModal");
+        const successModal = new bootstrap.Modal(successModalEl);
         const successGif = document.getElementById("successGif");
         const successQuoteEl = document.getElementById("successQuote");
         const successAuthorEl = document.getElementById("successAuthor");
@@ -1351,7 +1081,6 @@
         const autosaveLabel = document.getElementById("autosaveLabel");
         const pickFolderBtn = document.getElementById("pickFolderBtn");
 
-        // Assets
         const GIFS = [
           "https://media.giphy.com/media/YRuFixSNWFVcXaxpmX/giphy.gif",
           "https://media.giphy.com/media/vcKEsYOdjoCeJRpn95/giphy.gif",
@@ -1387,7 +1116,23 @@
           { q: "Focus on progress, not perfection.", a: "Unknown" },
         ];
 
-        // Utilities
+        let lastGif = -1;
+        function pickGif() {
+          if (GIFS.length === 1) return GIFS[0];
+          let i;
+          do {
+            i = Math.floor(Math.random() * GIFS.length);
+          } while (i === lastGif && GIFS.length > 1);
+          lastGif = i;
+          return GIFS[i];
+        }
+        function pickLeaveMotivation() {
+          return LEAVE_GIFS[Math.floor(Math.random() * LEAVE_GIFS.length)];
+        }
+        function pickQuote() {
+          return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+        }
+
         const fmt = (d) =>
           new Intl.DateTimeFormat(undefined, {
             day: "2-digit",
@@ -1421,16 +1166,6 @@
           );
           const diff = Math.floor((midnight - s) / 86400000);
           return diff + 1;
-        }
-
-        function pickGif() {
-          return GIFS[Math.floor(Math.random() * GIFS.length)];
-        }
-        function pickLeaveMotivation() {
-          return LEAVE_GIFS[Math.floor(Math.random() * LEAVE_GIFS.length)];
-        }
-        function pickQuote() {
-          return QUOTES[Math.floor(Math.random() * QUOTES.length)];
         }
 
         function showToast(msg) {
@@ -1485,39 +1220,6 @@
           }
         }
 
-        function extractYouTubeId(url) {
-          if (!url) return null;
-          try {
-            const u = new URL(normalizeUrl(url));
-            const host = u.hostname.toLowerCase();
-            if (host === "youtu.be") {
-              const id = u.pathname.slice(1).split(/[/?#]/)[0];
-              return id || null;
-            }
-            if (host.endsWith("youtube.com")) {
-              if (u.searchParams.get("v")) return u.searchParams.get("v");
-              const parts = u.pathname.split("/");
-              const embedIdx = parts.indexOf("embed");
-              if (embedIdx !== -1 && parts[embedIdx + 1])
-                return parts[embedIdx + 1];
-              const vIdx = parts.indexOf("v");
-              if (vIdx !== -1 && parts[vIdx + 1]) return parts[vIdx + 1];
-            }
-            return null;
-          } catch (e) {
-            return null;
-          }
-        }
-        function ytThumbnailUrl(id) {
-          if (!id) return "";
-          return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-        }
-        function hasAnyVideo() {
-          return Object.values(entries).some(
-            (e) => e && e.video && extractYouTubeId(e.video)
-          );
-        }
-
         function saveEntries() {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
         }
@@ -1536,6 +1238,7 @@
         function leavesLeft() {
           return Math.max(0, LEAVE_CAP - leavesUsed());
         }
+
         function updateLeaveBtn() {
           const left = leavesLeft();
           leaveBtn.innerHTML = `<span class="leave-count">${left}</span>`;
@@ -1582,7 +1285,528 @@
           }
         }
 
-        // Build card (same as previous behavior)
+        function fsAvailable() {
+          return "showDirectoryPicker" in window;
+        }
+        function openHandleDB() {
+          return new Promise((resolve, reject) => {
+            const req = indexedDB.open("aepp-file-handles", 1);
+            req.onupgradeneeded = () => {
+              const db = req.result;
+              if (!db.objectStoreNames.contains("handles"))
+                db.createObjectStore("handles");
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+          });
+        }
+        async function putHandle(key, handle) {
+          const db = await openHandleDB();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction("handles", "readwrite");
+            const store = tx.objectStore("handles");
+            const r = store.put(handle, key);
+            r.onsuccess = () => {
+              resolve(true);
+              db.close();
+            };
+            r.onerror = () => {
+              reject(r.error);
+              db.close();
+            };
+          });
+        }
+        async function getHandle(key) {
+          const db = await openHandleDB();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction("handles", "readonly");
+            const store = tx.objectStore("handles");
+            const r = store.get(key);
+            r.onsuccess = () => {
+              resolve(r.result);
+              db.close();
+            };
+            r.onerror = () => {
+              reject(r.error);
+              db.close();
+            };
+          });
+        }
+        async function removeHandle(key) {
+          const db = await openHandleDB();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction("handles", "readwrite");
+            const store = tx.objectStore("handles");
+            const r = store.delete(key);
+            r.onsuccess = () => {
+              resolve(true);
+              db.close();
+            };
+            r.onerror = () => {
+              reject(r.error);
+              db.close();
+            };
+          });
+        }
+        async function verifyPermission(handle, mode = "readwrite") {
+          if (!handle) return false;
+          if (handle.queryPermission) {
+            const q = await handle.queryPermission({ mode });
+            if (q === "granted") return true;
+            if (q === "prompt") {
+              const r = await handle.requestPermission({ mode });
+              return r === "granted";
+            }
+            return false;
+          }
+          return true;
+        }
+        async function getStoredDirHandle() {
+          if (!fsAvailable()) return null;
+          const h = await getHandle(HANDLE_DB_KEY).catch(() => null);
+          if (!h) return null;
+          const ok = await verifyPermission(h, "readwrite");
+          if (!ok) {
+            await removeHandle(HANDLE_DB_KEY).catch(() => null);
+            return null;
+          }
+          return h;
+        }
+        async function writeJsonToDir(dirHandle, filename, jsonText) {
+          if (!dirHandle) throw new Error("No dir handle");
+          const fh = await dirHandle.getFileHandle(filename, { create: true });
+          const writable = await fh.createWritable();
+          await writable.write(jsonText);
+          await writable.close();
+          return true;
+        }
+        async function readJsonFromDir(dirHandle, filename) {
+          if (!dirHandle) throw new Error("No dir handle");
+          try {
+            const fh = await dirHandle.getFileHandle(filename, {
+              create: false,
+            });
+            const file = await fh.getFile();
+            const txt = await file.text();
+            return JSON.parse(txt);
+          } catch (err) {
+            throw err;
+          }
+        }
+
+        function setAutosaveLight(status, label) {
+          autosaveLight.classList.remove("green", "red");
+          if (status === "ok") {
+            autosaveLight.classList.add("green");
+            autosaveLabel.textContent = label || "Saved";
+          } else if (status === "no") {
+            autosaveLight.classList.add("red");
+            autosaveLabel.textContent = label || "Not saved";
+          } else {
+            autosaveLight.classList.add("red");
+            autosaveLabel.textContent = label || "Unsupported";
+          }
+        }
+
+        function updateLastSavedDisplay() {
+          const ts = localStorage.getItem(LAST_AUTOSAVE_KEY);
+          if (ts) {
+            try {
+              const d = new Date(Number(ts));
+              document.getElementById("lastAutoSaveTime").textContent =
+                d.toLocaleString();
+            } catch (e) {
+              document.getElementById("lastAutoSaveTime").textContent = "—";
+            }
+          } else document.getElementById("lastAutoSaveTime").textContent = "—";
+        }
+
+        async function pickAndLoadFolder() {
+          if (!fsAvailable()) {
+            showToast("Folder access not supported in this browser");
+            setAutosaveLight("unsupported", "Unsupported");
+            return null;
+          }
+          try {
+            const dir = await window.showDirectoryPicker();
+            const ok = await verifyPermission(dir, "readwrite");
+            if (!ok) {
+              showToast("Permission required to use folder");
+              setAutosaveLight("no", "Permission denied");
+              return null;
+            }
+            await putHandle(HANDLE_DB_KEY, dir);
+            try {
+              const parsed = await readJsonFromDir(dir, AUTO_FILE_NAME);
+              if (parsed) {
+                const newEntries = {};
+                for (const k of Object.keys(parsed.entries || {})) {
+                  newEntries[Number(k)] = parsed.entries[k];
+                }
+                entries = newEntries;
+                leaves = Array.from(new Set((parsed.leaves || []).map(Number)));
+                startDateStr = parsed.startDateStr || startDateStr || "";
+                saveEntries();
+                saveLeaves();
+                saveStart();
+                showToast("Folder loaded — data restored");
+                localStorage.setItem(LAST_AUTOSAVE_KEY, String(Date.now()));
+                setAutosaveLight("ok", "Loaded");
+                updateLastSavedDisplay();
+                render();
+                return dir;
+              }
+            } catch (readErr) {
+              try {
+                const payload = {
+                  entries,
+                  leaves: Array.from(new Set(leaves)),
+                  startDateStr,
+                };
+                await writeJsonToDir(
+                  dir,
+                  AUTO_FILE_NAME,
+                  JSON.stringify(payload, null, 2)
+                );
+                localStorage.setItem(LAST_AUTOSAVE_KEY, String(Date.now()));
+                setAutosaveLight("ok", "Saved");
+                updateLastSavedDisplay();
+                showToast("Folder selected — initial file created");
+                return dir;
+              } catch (werr) {
+                console.warn("write error after pick", werr);
+                setAutosaveLight("no", "Write failed");
+                showToast("Could not create file in folder");
+                return null;
+              }
+            }
+          } catch (err) {
+            console.warn("pick cancelled or error", err);
+            return null;
+          }
+        }
+
+        async function autoSaveToFolder() {
+          try {
+            if (!fsAvailable()) {
+              setAutosaveLight("unsupported", "Unsupported");
+              return false;
+            }
+            const dir = await getStoredDirHandle();
+            if (!dir) {
+              setAutosaveLight("no", "No folder");
+              return false;
+            }
+            const payload = {
+              entries,
+              leaves: Array.from(new Set(leaves)),
+              startDateStr,
+            };
+            await writeJsonToDir(
+              dir,
+              AUTO_FILE_NAME,
+              JSON.stringify(payload, null, 2)
+            );
+            const ts = Date.now();
+            localStorage.setItem(LAST_AUTOSAVE_KEY, String(ts));
+            setAutosaveLight("ok", "Saved");
+            updateLastSavedDisplay();
+            return true;
+          } catch (err) {
+            console.warn("autosave failed", err);
+            setAutosaveLight("no", "Save failed");
+            return false;
+          }
+        }
+
+        function exportData() {
+          const payload = {
+            meta: {
+              exportedAt: Date.now(),
+              totalDays: TOTAL_DAYS,
+              version: "aepp-v4",
+            },
+            entries,
+            startDateStr,
+            leaves: Array.from(new Set(leaves)),
+          };
+          const json = JSON.stringify(payload, null, 2);
+          const blob = new Blob([json], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          const name = `aepp-export-${new Date()
+            .toISOString()
+            .slice(0, 10)}.json`;
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          showToast("Export started");
+        }
+
+        function validateImportedShape(obj) {
+          if (!obj || typeof obj !== "object") return "Invalid JSON root";
+          if (!("entries" in obj) || !("leaves" in obj))
+            return "Missing required keys (entries, leaves)";
+          if (obj.entries && typeof obj.entries !== "object")
+            return "entries must be an object";
+          if (!Array.isArray(obj.leaves)) return "leaves must be an array";
+          for (const k of Object.keys(obj.entries)) {
+            const n = Number(k);
+            if (!Number.isInteger(n) || n < 1 || n > TOTAL_DAYS)
+              return `Invalid entry day key: ${k}`;
+          }
+          for (const v of obj.leaves) {
+            const n = Number(v);
+            if (!Number.isInteger(n) || n < 1 || n > TOTAL_DAYS)
+              return `Invalid leave day: ${v}`;
+          }
+          if ("startDateStr" in obj && obj.startDateStr) {
+            const s = obj.startDateStr;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(s))
+              return "startDateStr must be YYYY-MM-DD";
+          }
+          return null;
+        }
+
+        function applyImportedData(obj, mode) {
+          if (mode === "replace") {
+            entries = {};
+            for (const k of Object.keys(obj.entries)) {
+              const n = Number(k);
+              entries[n] = obj.entries[k];
+            }
+            leaves = Array.from(new Set(obj.leaves.map(Number)));
+            startDateStr = obj.startDateStr || "";
+          } else {
+            for (const k of Object.keys(obj.entries)) {
+              const n = Number(k);
+              entries[n] = obj.entries[k];
+            }
+            leaves = Array.from(
+              new Set([...leaves.map(Number), ...obj.leaves.map(Number)])
+            );
+            if (!startDateStr && obj.startDateStr)
+              startDateStr = obj.startDateStr;
+          }
+          saveEntries();
+          saveLeaves();
+          saveStart();
+          render();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          if (startDateStr) {
+            startDateInput.value = startDateStr;
+            startDateInput.disabled = true;
+          } else startDateInput.disabled = false;
+
+          const fpInput = document.createElement("input");
+          fpInput.type = "text";
+          fpInput.style.position = "absolute";
+          fpInput.style.left = "-9999px";
+          document.body.appendChild(fpInput);
+
+          const dateBtnEl = document.getElementById("dateBtn");
+          const fp = flatpickr(fpInput, {
+            dateFormat: "Y-m-d",
+            appendTo: document.body,
+            allowInput: false,
+            onReady: function () {
+              const cal = this.calendarContainer;
+              if (!cal) return;
+              cal.style.display = "block";
+              cal.style.opacity = "0";
+              cal.style.transition = "";
+            },
+            onOpen: function (selectedDates, dateStr, instance) {
+              const cal = instance.calendarContainer;
+              if (!cal) return;
+              cal.style.display = "block";
+              cal.style.zIndex = "99999";
+              cal.style.opacity = "0";
+              cal.style.transition = "opacity 120ms ease";
+              requestAnimationFrame(() => {
+                void cal.offsetHeight;
+                try {
+                  const rect = dateBtnEl.getBoundingClientRect();
+                  const left = Math.min(
+                    Math.max(8, rect.left + window.scrollX),
+                    document.documentElement.clientWidth - cal.offsetWidth - 8
+                  );
+                  const preferBelow =
+                    window.innerHeight - rect.bottom > cal.offsetHeight + 12;
+                  const top = preferBelow
+                    ? window.scrollY + rect.bottom + 8
+                    : window.scrollY + rect.top - cal.offsetHeight - 8;
+                  cal.style.left = left + "px";
+                  cal.style.top = top + "px";
+                } catch (e) {}
+                cal.style.opacity = "1";
+              });
+            },
+            onChange: function (selectedDates, dateStr) {
+              if (!dateStr) return;
+              confirmDateText.textContent = dateStr;
+              confirmModal.show();
+              okConfirm.onclick = () => {
+                startDateStr = dateStr;
+                startDateInput.value = dateStr;
+                startDateInput.disabled = true;
+                saveStart();
+                confirmModal.hide();
+                showToast("Start date set");
+                render();
+              };
+              cancelConfirm.onclick = () => {
+                confirmModal.hide();
+                fp.clear();
+              };
+            },
+          });
+
+          dateBtnEl.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (startDateStr || startDateInput.disabled) {
+              showToast("Start date locked");
+              return;
+            }
+            fp.open();
+            requestAnimationFrame(() => {
+              const cal = fp.calendarContainer;
+              if (cal) {
+                void cal.offsetHeight;
+                cal.style.opacity = "1";
+                cal.style.display = "block";
+              }
+            });
+          });
+        });
+
+        startDateInput.addEventListener("change", () => {
+          if (!startDateInput.value) return;
+          confirmDateText.textContent = startDateInput.value;
+          confirmModal.show();
+          okConfirm.onclick = () => {
+            startDateStr = startDateInput.value;
+            saveStart();
+            startDateInput.disabled = true;
+            confirmModal.hide();
+            showToast("Start date set");
+            render();
+          };
+          cancelConfirm.onclick = () => {
+            startDateInput.value = startDateStr || "";
+            confirmModal.hide();
+          };
+        });
+
+        function extractYouTubeId(url) {
+          if (!url) return null;
+          try {
+            const u = new URL(normalizeUrl(url));
+            const host = u.hostname.toLowerCase();
+            if (host === "youtu.be") {
+              const id = u.pathname.slice(1).split(/[/?#]/)[0];
+              return id || null;
+            }
+            if (host.endsWith("youtube.com")) {
+              if (u.searchParams.get("v")) return u.searchParams.get("v");
+              const parts = u.pathname.split("/");
+              const embedIdx = parts.indexOf("embed");
+              if (embedIdx !== -1 && parts[embedIdx + 1])
+                return parts[embedIdx + 1];
+              const vIdx = parts.indexOf("v");
+              if (vIdx !== -1 && parts[vIdx + 1]) return parts[vIdx + 1];
+            }
+            return null;
+          } catch (e) {
+            return null;
+          }
+        }
+        function ytThumbnailUrl(id) {
+          if (!id) return "";
+          return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        }
+        function hasAnyVideo() {
+          return Object.values(entries).some(
+            (e) => e && e.video && extractYouTubeId(e.video)
+          );
+        }
+
+        function buildGallery() {
+          const galleryGrid = document.getElementById("galleryGrid");
+          const galleryEmpty = document.getElementById("galleryEmpty");
+          galleryGrid.innerHTML = "";
+          const items = [];
+          for (const dayKey of Object.keys(entries).sort(
+            (a, b) => Number(a) - Number(b)
+          )) {
+            const day = Number(dayKey);
+            const e = entries[day];
+            if (!e || !e.video) continue;
+            const id = extractYouTubeId(e.video);
+            if (!id) continue;
+            items.push({ day, id, url: e.video, savedAt: e.savedAt || null });
+          }
+          if (items.length === 0) {
+            galleryEmpty.style.display = "block";
+            return;
+          }
+          galleryEmpty.style.display = "none";
+          items.forEach((it) => {
+            const thumb = document.createElement("div");
+            thumb.className = "gallery-thumb";
+            thumb.tabIndex = 0;
+            thumb.setAttribute("role", "button");
+            thumb.setAttribute("aria-label", `Play Day ${it.day} video`);
+            thumb.innerHTML = `
+        <img loading="lazy" alt="Day ${it.day} thumbnail" src="${ytThumbnailUrl(
+              it.id
+            )}" />
+        <div class="gallery-meta"><div>Day ${
+          it.day
+        }</div><div class="small-muted">${
+              it.savedAt ? fmt(new Date(it.savedAt)) : ""
+            }</div></div>
+      `;
+            thumb.addEventListener("click", () => openPlayer(it));
+            thumb.addEventListener("keydown", (ev) => {
+              if (ev.key === "Enter" || ev.key === " ") {
+                ev.preventDefault();
+                openPlayer(it);
+              }
+            });
+            galleryGrid.appendChild(thumb);
+          });
+        }
+
+        function openPlayer(item) {
+          if (!item || !item.id) return;
+          const src = `https://www.youtube.com/embed/${encodeURIComponent(
+            item.id
+          )}?rel=0&modestbranding=1&autoplay=1`;
+          playerIframe.src = src;
+          playerTitle.textContent = `Day ${item.day} — Video`;
+          playerModal.show();
+        }
+        playerModalEl.addEventListener("hidden.bs.modal", () => {
+          playerIframe.src = "";
+          playerTitle.textContent = "Play video";
+        });
+
+        document.getElementById("galleryBtn").addEventListener("click", (e) => {
+          e.preventDefault();
+          if (document.getElementById("galleryBtn").disabled) {
+            showToast("Gallery is not available yet");
+            return;
+          }
+          buildGallery();
+          new bootstrap.Modal(document.getElementById("galleryModal")).show();
+        });
+
         function buildCard(day) {
           const saved = entries[day] || {};
           const tIdx = todayIndex();
@@ -1701,6 +1925,7 @@
             row.appendChild(ill);
             row.appendChild(msgWrap);
             content.appendChild(row);
+
             const footer = document.createElement("div");
             footer.className = "card-footer";
             footer.innerHTML = `<div class="small-muted">Leave recorded</div>`;
@@ -1758,10 +1983,9 @@
                 : "This day is locked — only the active day is writable.";
               content.appendChild(locked);
             } else {
-              form.addEventListener("submit", (e) => {
+              form.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 if (!canWrite) return;
-
                 const rawVideo = inputVideo.value.trim();
                 const rawProject = inputProject.value.trim();
                 const note = textarea.value.trim();
@@ -1805,14 +2029,49 @@
                 successSub.textContent =
                   "Entry saved for today. Keep the momentum going.";
 
+                autoSaveToFolder().then(() => {});
                 successModal.show();
                 render();
               });
             }
             content.appendChild(form);
           }
+
           wrap.appendChild(content);
           return wrap;
+        }
+
+        function btn(text, onClick, disabled) {
+          const b = document.createElement("button");
+          b.textContent = text;
+          b.className = "btn btn-sm btn-outline-light";
+          b.disabled = !!disabled;
+          b.addEventListener("click", onClick);
+          return b;
+        }
+
+        function renderPager(totalPages) {
+          pager.innerHTML = "";
+          const prev = btn(
+            "Prev",
+            () => {
+              currentPage--;
+              render();
+            },
+            currentPage <= 1
+          );
+          const next = btn(
+            "Next",
+            () => {
+              currentPage++;
+              render();
+            },
+            currentPage >= totalPages
+          );
+          const meta = document.createElement("span");
+          meta.className = "badge bg-transparent text-muted";
+          meta.textContent = `Page ${currentPage} of ${totalPages}`;
+          pager.append(prev, meta, next);
         }
 
         function render() {
@@ -1834,156 +2093,12 @@
           const from = total ? start + 1 : 0;
           const to = start + page.length;
           rangePill.textContent = `SHOWING ${from} TO ${to} OF ${total}`;
+          renderPager(totalPages);
           updateProgress();
           updateLeaveBtn();
+          updateLastSavedDisplay();
         }
 
-        // Gallery behavior (same as redesigned)
-        function buildGalleryItems() {
-          const items = [];
-          for (const dayKey of Object.keys(entries).sort(
-            (a, b) => Number(a) - Number(b)
-          )) {
-            const day = Number(dayKey);
-            const e = entries[day];
-            if (!e || !e.video) continue;
-            const id = extractYouTubeId(e.video);
-            if (!id) continue;
-            items.push({ day, id, url: e.video, savedAt: e.savedAt || null });
-          }
-          return items;
-        }
-
-        function renderGallery() {
-          const items = buildGalleryItems();
-          const q = (gallerySearch?.value || "").trim().toLowerCase();
-          const filtered = items.filter((it) => {
-            if (!q) return true;
-            const dayText = `day ${it.day}`.toLowerCase();
-            const dateText = it.savedAt
-              ? fmt(new Date(it.savedAt)).toLowerCase()
-              : "";
-            return (
-              dayText.includes(q) ||
-              dateText.includes(q) ||
-              String(it.day).includes(q)
-            );
-          });
-
-          const sort = gallerySort?.value || "day-asc";
-          const sorted = filtered.slice().sort((a, b) => {
-            if (sort === "day-asc") return a.day - b.day;
-            if (sort === "day-desc") return b.day - a.day;
-            if (sort === "date-asc") return (a.savedAt || 0) - (b.savedAt || 0);
-            if (sort === "date-desc")
-              return (b.savedAt || 0) - (a.savedAt || 0);
-            return 0;
-          });
-
-          galleryGrid.innerHTML = "";
-          if (sorted.length === 0) {
-            galleryEmpty.style.display = "block";
-            galleryCount.textContent = "0";
-            gallerySummary.textContent = "No videos found";
-            return;
-          } else {
-            galleryEmpty.style.display = "none";
-            galleryCount.textContent = String(sorted.length);
-            gallerySummary.textContent = `Showing ${sorted.length} video${
-              sorted.length > 1 ? "s" : ""
-            }`;
-          }
-
-          sorted.forEach((it) => {
-            const card = document.createElement("div");
-            card.className = "gallery-card";
-            card.tabIndex = 0;
-            card.setAttribute("role", "button");
-            card.setAttribute("aria-label", `Play Day ${it.day} video`);
-
-            const thumb = document.createElement("img");
-            thumb.className = "gallery-thumb";
-            thumb.loading = "lazy";
-            thumb.alt = `Day ${it.day} thumbnail`;
-            thumb.src = ytThumbnailUrl(it.id);
-
-            const overlay = document.createElement("div");
-            overlay.className = "play-overlay";
-            overlay.innerHTML = `
-        <div class="overlay-shade" aria-hidden="true"></div>
-        <div class="play-button" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" fill="#ffffff"/></svg>
-        </div>
-      `;
-
-            const meta = document.createElement("div");
-            meta.className = "gallery-meta-row";
-            const dayEl = document.createElement("div");
-            dayEl.className = "gallery-day";
-            dayEl.textContent = `Day ${it.day}`;
-            const dateEl = document.createElement("div");
-            dateEl.className = "gallery-date";
-            dateEl.textContent = it.savedAt ? fmt(new Date(it.savedAt)) : "";
-            meta.appendChild(dayEl);
-            meta.appendChild(dateEl);
-
-            const caption = document.createElement("div");
-            caption.className = "thumb-caption";
-            caption.innerHTML = `<div class="tag">Day ${
-              it.day
-            }</div><div class="small-muted">${
-              it.savedAt ? fmt(new Date(it.savedAt)) : ""
-            }</div>`;
-
-            card.appendChild(thumb);
-            card.appendChild(overlay);
-            card.appendChild(meta);
-            card.appendChild(caption);
-
-            const openPlayer = () => {
-              const src = `https://www.youtube.com/embed/${encodeURIComponent(
-                it.id
-              )}?rel=0&modestbranding=1&autoplay=1`;
-              playerIframe.src = src;
-              playerTitle.textContent = `Day ${it.day} — Video`;
-              playerModal.show();
-            };
-            card.addEventListener("click", openPlayer);
-            card.addEventListener("keydown", (ev) => {
-              if (ev.key === "Enter" || ev.key === " ") {
-                ev.preventDefault();
-                openPlayer();
-              }
-            });
-
-            galleryGrid.appendChild(card);
-          });
-        }
-
-        if (gallerySearch)
-          gallerySearch.addEventListener("input", () => renderGallery());
-        if (gallerySort)
-          gallerySort.addEventListener("change", () => renderGallery());
-
-        galleryBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          if (galleryBtn.disabled) {
-            showToast("Gallery is not available yet");
-            return;
-          }
-          renderGallery();
-          galleryModal.show();
-          setTimeout(() => {
-            gallerySearch?.focus();
-          }, 220);
-        });
-
-        playerModalEl.addEventListener("hidden.bs.modal", () => {
-          playerIframe.src = "";
-          playerTitle.textContent = "Play video";
-        });
-
-        // leave flow
         leaveBtn.addEventListener("click", () => {
           if (!startDateStr) {
             showToast("Set start date first");
@@ -2006,8 +2121,7 @@
             showToast("Leave already recorded for today");
             return;
           }
-          document.getElementById("leaveDayText").textContent =
-            dayToDate(day) || `Day ${day}`;
+          leaveDayText.textContent = dayToDate(day) || `Day ${day}`;
           leaveModal.show();
         });
 
@@ -2022,25 +2136,33 @@
             leaveModal.hide();
             return;
           }
+
           if (leaves.includes(day)) {
             showToast("Leave already recorded");
             leaveModal.hide();
             return;
           }
+
           leaves.push(day);
           saveLeaves();
+
+          // hide confirm modal, then show success modal
           leaveModal.hide();
+
           const pick = pickLeaveMotivation();
           leaveGif.src = pick.url;
           leaveMsg.textContent = pick.msg;
           leaveSuccessModal.show();
+
+          // autosave
+          autoSaveToFolder().then(() => {});
           render();
         });
 
         cancelLeave.addEventListener("click", () => {
           leaveModal.hide();
         });
-        document.getElementById("leaveOk").addEventListener("click", () => {
+        leaveOk.addEventListener("click", () => {
           leaveSuccessModal.hide();
           render();
         });
@@ -2049,128 +2171,86 @@
           successModal.hide();
         });
 
-        // start-date flatpickr wiring (unchanged)
-        document.addEventListener("DOMContentLoaded", () => {
-          if (startDateStr) {
-            startDateInput.value = startDateStr;
-            startDateInput.disabled = true;
-          } else {
-            startDateInput.disabled = false;
+        pickFolderBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          if (!fsAvailable()) {
+            showToast("Folder access not supported in this browser");
+            setAutosaveLight("unsupported", "Unsupported");
+            return;
           }
-
-          const fpInput = document.createElement("input");
-          fpInput.type = "text";
-          fpInput.style.position = "absolute";
-          fpInput.style.left = "-9999px";
-          document.body.appendChild(fpInput);
-
-          const dateBtnEl = document.getElementById("dateBtn");
-          const fp = flatpickr(fpInput, {
-            dateFormat: "Y-m-d",
-            appendTo: document.body,
-            allowInput: false,
-            onReady: function () {
-              const cal = this.calendarContainer;
-              if (!cal) return;
-              cal.style.display = "block";
-              cal.style.opacity = "0";
-              cal.style.transition = "";
-            },
-            onOpen: function (selectedDates, dateStr, instance) {
-              const cal = instance.calendarContainer;
-              if (!cal) return;
-              cal.style.display = "block";
-              cal.style.zIndex = "99999";
-              cal.style.opacity = "0";
-              cal.style.transition = "opacity 120ms ease";
-              requestAnimationFrame(() => {
-                void cal.offsetHeight;
-                try {
-                  const rect = dateBtnEl.getBoundingClientRect();
-                  const left = Math.min(
-                    Math.max(8, rect.left + window.scrollX),
-                    document.documentElement.clientWidth - cal.offsetWidth - 8
-                  );
-                  const preferBelow =
-                    window.innerHeight - rect.bottom > cal.offsetHeight + 12;
-                  const top = preferBelow
-                    ? window.scrollY + rect.bottom + 8
-                    : window.scrollY + rect.top - cal.offsetHeight - 8;
-                  cal.style.left = left + "px";
-                  cal.style.top = top + "px";
-                } catch (e) {}
-                cal.style.opacity = "1";
-              });
-            },
-            onChange: function (selectedDates, dateStr) {
-              if (!dateStr) return;
-              document.getElementById("confirmDateText").textContent = dateStr;
-              confirmModal.show();
-              document.getElementById("okConfirm").onclick = () => {
-                startDateStr = dateStr;
-                startDateInput.value = dateStr;
-                startDateInput.disabled = true;
-                saveStart();
-                confirmModal.hide();
-                showToast("Start date set");
-                render();
-              };
-              document.getElementById("cancelConfirm").onclick = () => {
-                confirmModal.hide();
-                fp.clear();
-              };
-            },
-          });
-
-          dateBtnEl.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (startDateStr || startDateInput.disabled) {
-              showToast("Start date locked");
+          try {
+            const dir = await window.showDirectoryPicker();
+            const ok = await verifyPermission(dir, "readwrite");
+            if (!ok) {
+              showToast("Permission required to use folder");
+              setAutosaveLight("no", "Permission denied");
               return;
             }
-            fp.open();
-            requestAnimationFrame(() => {
-              const cal = fp.calendarContainer;
-              if (cal) {
-                void cal.offsetHeight;
-                cal.style.opacity = "1";
-                cal.style.display = "block";
+            await putHandle(HANDLE_DB_KEY, dir);
+            try {
+              const parsed = await readJsonFromDir(dir, AUTO_FILE_NAME);
+              if (parsed) {
+                const newEntries = {};
+                for (const k of Object.keys(parsed.entries || {})) {
+                  newEntries[Number(k)] = parsed.entries[k];
+                }
+                entries = newEntries;
+                leaves = Array.from(new Set((parsed.leaves || []).map(Number)));
+                startDateStr = parsed.startDateStr || startDateStr || "";
+                saveEntries();
+                saveLeaves();
+                saveStart();
+                showToast("Folder loaded — data restored");
+                localStorage.setItem(LAST_AUTOSAVE_KEY, String(Date.now()));
+                setAutosaveLight("ok", "Loaded");
+                updateLastSavedDisplay();
+                render();
+                return;
               }
-            });
-          });
+            } catch (e) {
+              const payload = {
+                entries,
+                leaves: Array.from(new Set(leaves)),
+                startDateStr,
+              };
+              await writeJsonToDir(
+                dir,
+                AUTO_FILE_NAME,
+                JSON.stringify(payload, null, 2)
+              );
+              localStorage.setItem(LAST_AUTOSAVE_KEY, String(Date.now()));
+              setAutosaveLight("ok", "Saved");
+              updateLastSavedDisplay();
+              showToast("Folder selected — initial file created");
+              render();
+              return;
+            }
+          } catch (err) {
+            console.warn("pick folder error", err);
+            return;
+          }
         });
 
-        startDateInput.addEventListener("change", () => {
-          if (!startDateInput.value) return;
-          document.getElementById("confirmDateText").textContent =
-            startDateInput.value;
-          confirmModal.show();
-          document.getElementById("okConfirm").onclick = () => {
-            startDateStr = startDateInput.value;
-            saveStart();
-            startDateInput.disabled = true;
-            confirmModal.hide();
-            showToast("Start date set");
-            render();
-          };
-          document.getElementById("cancelConfirm").onclick = () => {
-            startDateInput.value = startDateStr || "";
-            confirmModal.hide();
-          };
-        });
-
-        // initial render
-        (function init() {
+        (async function init() {
           render();
           updateLeaveBtn();
           updateGalleryBtn();
+          if (!fsAvailable()) {
+            setAutosaveLight("unsupported", "Unsupported");
+            updateLastSavedDisplay();
+            return;
+          }
+          const dir = await getStoredDirHandle().catch(() => null);
+          if (dir) {
+            setAutosaveLight("ok", "Ready");
+            updateLastSavedDisplay();
+          } else {
+            setAutosaveLight("no", "No folder");
+          }
         })();
 
-        // public API
         window.ui = {
-          refreshGrid: () => {
-            render();
-          },
+          refreshGrid: () => render(),
           refreshProgress: () => {
             updateProgress();
             updateLeaveBtn();
@@ -2203,10 +2283,17 @@
             return true;
           },
           openGallery: () => {
-            if (galleryBtn.disabled) return false;
-            renderGallery();
-            galleryModal.show();
+            if (document.getElementById("galleryBtn").disabled) return false;
+            buildGallery();
+            new bootstrap.Modal(document.getElementById("galleryModal")).show();
             return true;
+          },
+          clearSavedFolder: async () => {
+            await removeHandle(HANDLE_DB_KEY).catch(() => null);
+            localStorage.removeItem(LAST_AUTOSAVE_KEY);
+            setAutosaveLight("no", "No folder");
+            updateLastSavedDisplay();
+            showToast("Saved folder removed");
           },
         };
       })();
