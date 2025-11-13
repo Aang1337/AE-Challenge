@@ -71,10 +71,43 @@
         backdrop-filter: blur(6px) saturate(120%);
         padding: 6px 0;
       }
+
+      /* motivation box (rotating quote) — smoother transitions */
+      .motivation-box {
+        max-width: 1200px;
+        margin: 8px auto 0;
+        padding: 6px 18px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--accent-2);
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          rgba(6, 18, 16, 0.18),
+          rgba(3, 8, 7, 0.12)
+        );
+        border: 1px solid rgba(34, 197, 94, 0.06);
+        box-shadow: 0 8px 24px rgba(2, 6, 6, 0.45);
+        opacity: 0;
+        transform: translateY(-6px) scale(0.995);
+        transition: opacity 620ms cubic-bezier(0.2, 0.9, 0.3, 1),
+          transform 620ms cubic-bezier(0.2, 0.9, 0.3, 1);
+        pointer-events: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        will-change: opacity, transform;
+      }
+      .motivation-box.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
       .container-main {
         max-width: 1200px;
         margin: 20px auto;
-        padding: 0 18px 80px;
+        padding: 0 18px 0px;
       }
       .brand {
         display: flex;
@@ -90,7 +123,7 @@
       }
       .brand-title {
         font-weight: 700;
-        font-size: 13px;
+        font-size: 20px;
         line-height: 1;
       }
       .subtitle {
@@ -536,6 +569,11 @@
         .gif-wrapper {
           width: 260px;
         }
+        .motivation-box {
+          font-size: 13px;
+          padding-left: 12px;
+          padding-right: 12px;
+        }
       }
     </style>
   </head>
@@ -547,8 +585,8 @@
         <div class="brand">
           <span class="brand-dot" aria-hidden="true"></span>
           <div>
-            <div class="brand-title">After Effects Powerplay — Vol 2.0</div>
-            <div class="subtitle">45 Days Editing Challenge</div>
+            <div class="brand-title">Challenge</div>
+            <div class="subtitle">Editing Challenge</div>
           </div>
         </div>
 
@@ -612,6 +650,15 @@
         </div>
       </div>
     </header>
+
+    <!-- Motivation box added under header -->
+    <div
+      id="motivationBox"
+      class="motivation-box"
+      aria-live="polite"
+      aria-atomic="true"
+      tabindex="-1"
+    ></div>
 
     <main class="container-main">
       <div id="section-progress">
@@ -2296,6 +2343,85 @@
             showToast("Saved folder removed");
           },
         };
+      })();
+    </script>
+
+    <!-- Updated: smoother animation timings + 15 second rotation -->
+    <script>
+      (function () {
+        const QUOTES_EXTRA = [
+          "Small progress each day adds up.",
+          "Don’t watch the clock; do what it does — keep going.",
+          "Focus on progress, not perfection.",
+          "Start where you are. Use what you have. Do what you can.",
+          "The secret of getting ahead is getting started.",
+          "You don’t have to be great to start, but you have to start to be great.",
+          "Consistency is what transforms average into excellence.",
+          "One day or day one. You decide.",
+          "Small steps every day.",
+          "Be proud of how far you’ve come.",
+          "Progress, not perfection.",
+          "Keep going — everything you need will come to you.",
+          "Discipline is choosing between what you want now and what you want most.",
+          "Do something today that your future self will thank you for.",
+          "The future depends on what you do today.",
+          "Believe you can, and you're halfway there.",
+          "Every day is a fresh start.",
+          "Little by little, a little becomes a lot.",
+          "You are stronger than you think.",
+          "Keep moving forward — small steps win challenges.",
+        ];
+
+        const el = document.getElementById("motivationBox");
+        if (!el) return;
+
+        // match to CSS transition (ms)
+        const FADE_MS = 620;
+        const DISPLAY_INTERVAL_MS = 15000; // 15 seconds
+
+        let idx = -1;
+        let intervalId = null;
+        function showNext() {
+          idx = (idx + 1) % QUOTES_EXTRA.length;
+          // fade out
+          el.classList.remove("show");
+          // wait for fade out to complete (use slightly less than full transition for crispness)
+          setTimeout(() => {
+            // change text then fade in
+            el.textContent = QUOTES_EXTRA[idx];
+            el.classList.add("show");
+          }, Math.max(220, FADE_MS - 240));
+        }
+
+        // show first (enter after a short micro-delay so CSS transition plays)
+        setTimeout(() => {
+          showNext();
+          // schedule repeating
+          intervalId = setInterval(showNext, DISPLAY_INTERVAL_MS);
+        }, 120);
+
+        // accessibility: pause rotation on focus/hover and resume on blur/mouseout
+        let paused = false;
+        function pauseRotation() {
+          if (paused) return;
+          paused = true;
+          if (intervalId) clearInterval(intervalId);
+          intervalId = null;
+        }
+        function resumeRotation() {
+          if (!paused) return;
+          paused = false;
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(showNext, DISPLAY_INTERVAL_MS);
+        }
+
+        el.addEventListener("focus", pauseRotation);
+        el.addEventListener("blur", resumeRotation);
+        el.addEventListener("mouseover", pauseRotation);
+        el.addEventListener("mouseout", resumeRotation);
+
+        // make it keyboard-focusable for accessibility (so screen readers can pause)
+        el.setAttribute("tabindex", "0");
       })();
     </script>
   </body>
