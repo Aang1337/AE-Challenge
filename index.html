@@ -72,11 +72,16 @@
         padding: 6px 0;
       }
 
-      /* motivation box (rotating quote) — smoother transitions */
+      /* motivation box (rotating quote) — positioned and aligned with content */
       .motivation-box {
+        /* align with container-main padding and remain visible under header */
+        position: sticky;
+        top: 96px; /* sits just below the 90px header; slight offset for breathing room */
+        z-index: 70;
+        width: calc(100% - 36px); /* same padding as container-main */
         max-width: 1200px;
-        margin: 8px auto 0;
-        padding: 6px 18px;
+        margin: 0 auto 12px;
+        padding: 10px 18px;
         text-align: center;
         font-size: 14px;
         font-weight: 700;
@@ -93,7 +98,7 @@
         transform: translateY(-6px) scale(0.995);
         transition: opacity 620ms cubic-bezier(0.2, 0.9, 0.3, 1),
           transform 620ms cubic-bezier(0.2, 0.9, 0.3, 1);
-        pointer-events: none;
+        pointer-events: auto;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -107,7 +112,7 @@
       .container-main {
         max-width: 1200px;
         margin: 20px auto;
-        padding: 0 18px 0px;
+        padding: 0 18px 80px;
       }
       .brand {
         display: flex;
@@ -573,7 +578,95 @@
           font-size: 13px;
           padding-left: 12px;
           padding-right: 12px;
+          width: calc(100% - 24px);
+          top: 86px;
         }
+      }
+
+      /* -------------------------
+         Bottle widget - bottom-right
+         ------------------------- */
+      .bottle-widget {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        width: 96px;
+        height: 160px;
+        z-index: 350;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+      }
+
+      .bottle-card {
+        width: 96px;
+        height: 160px;
+        margin-bottom: 81px;
+        margin-right: 1px;
+        border-radius: 12px;
+        padding: 6px;
+        background: linear-gradient(
+          180deg,
+          rgba(4, 8, 6, 0.5),
+          rgba(4, 8, 6, 0.35)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        display: grid;
+        place-items: center;
+      }
+
+      .bottle-tooltip {
+        position: absolute;
+        bottom: 180px;
+        right: 4px;
+        background: rgba(3, 8, 8, 0.9);
+        color: var(--text);
+        font-size: 12px;
+        padding: 6px 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        white-space: nowrap;
+        transform-origin: center bottom;
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+        transition: opacity 220ms ease, transform 220ms ease;
+        pointer-events: none;
+      }
+      .bottle-widget:hover .bottle-tooltip,
+      .bottle-widget:focus-within .bottle-tooltip {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      /* wave animation */
+      @keyframes waveShift {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* make the water transition smooth when percent changes */
+      .water-rect {
+        transition: y 900ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* small accessibility hint */
+      .bottle-visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: -1px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        clip-path: inset(50%) !important;
+        white-space: nowrap !important;
       }
     </style>
   </head>
@@ -651,13 +744,12 @@
       </div>
     </header>
 
-    <!-- Motivation box added under header -->
+    <!-- Motivation box placed under header and aligned to container -->
     <div
       id="motivationBox"
       class="motivation-box"
       aria-live="polite"
       aria-atomic="true"
-      tabindex="-1"
     ></div>
 
     <main class="container-main">
@@ -1057,6 +1149,149 @@
       <span class="small-muted">Built for 45 day editing challenges</span>
     </footer>
 
+    <!-- Bottle widget (bottom-right) -->
+    <div
+      class="bottle-widget"
+      aria-hidden="false"
+      role="region"
+      aria-label="Progress bottle"
+    >
+      <div class="bottle-card" tabindex="0">
+        <div class="bottle-tooltip" aria-hidden="true" id="bottleTooltip">
+          0% complete
+        </div>
+
+        <!-- SVG bottle: viewBox is 0 0 100 200 (width 100, height 200) -->
+        <!-- We'll use a mask from the bottle outline and draw a rect for water whose y is set by JS -->
+        <svg
+          id="bottleSvg"
+          viewBox="0 0 100 200"
+          width="70"
+          height="140"
+          aria-hidden="true"
+          role="img"
+        >
+          <defs>
+            <clipPath id="bottleClip">
+              <!-- simple bottle shape path (neck + body). This is intentionally simple to be robust -->
+              <path
+                d="M45 10
+                       L55 10
+                       L58 44
+                       C58 52 62 60 62 68
+                       L62 168
+                       C62 176 54 190 50 190
+                       C46 190 38 176 38 168
+                       L38 68
+                       C38 60 42 52 42 44
+                       Z"
+                fill="black"
+              />
+            </clipPath>
+
+            <!-- small wave pattern repeated horizontally -->
+            <pattern
+              id="wavePattern"
+              x="0"
+              y="0"
+              width="200"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M0 20 C10 10 30 10 40 20 C50 30 70 30 80 20 C90 10 110 10 120 20"
+                fill="none"
+                stroke="rgba(255,255,255,0.18)"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </pattern>
+          </defs>
+
+          <!-- bottle outline -->
+          <g
+            id="bottleOutline"
+            stroke="rgba(255,255,255,0.12)"
+            stroke-width="2"
+            fill="none"
+          >
+            <path
+              d="M45 10 L55 10 L58 44 C58 52 62 60 62 68 L62 168 C62 176 54 190 50 190 C46 190 38 176 38 168 L38 68 C38 60 42 52 42 44 Z"
+            />
+          </g>
+
+          <!-- water group clipped to bottle -->
+          <g clip-path="url(#bottleClip)" id="waterGroup">
+            <!-- water background -->
+            <rect
+              id="waterRect"
+              class="water-rect"
+              x="0"
+              y="120"
+              width="100"
+              height="200"
+              fill="url(#waterGradient)"
+            ></rect>
+
+            <!-- wave overlay (moving) - two copies to allow seamless translation -->
+            <g id="waves" style="transform-origin: 0 0; will-change: transform">
+              <g id="wave1" transform="translate(0,0)" style="opacity: 0.95">
+                <rect
+                  x="0"
+                  y="0"
+                  width="200"
+                  height="40"
+                  fill="rgba(255,255,255,0)"
+                ></rect>
+                <g
+                  transform="translate(0,20)"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.08)"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M0 0 C10 -10 30 -10 40 0 C50 10 70 10 80 0 C90 -10 110 -10 120 0"
+                    stroke-linecap="round"
+                  />
+                </g>
+              </g>
+              <g id="wave2" transform="translate(100,0)" style="opacity: 0.95">
+                <rect
+                  x="0"
+                  y="0"
+                  width="200"
+                  height="40"
+                  fill="rgba(255,255,255,0)"
+                ></rect>
+                <g
+                  transform="translate(0,20)"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.08)"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M0 0 C10 -10 30 -10 40 0 C50 10 70 10 80 0 C90 -10 110 -10 120 0"
+                    stroke-linecap="round"
+                  />
+                </g>
+              </g>
+            </g>
+
+            <!-- subtle glossy highlight -->
+            <path
+              d="M48 20 C50 38 55 56 55 140 C55 154 52 178 50 180 C48 178 45 154 45 140 C45 56 50 38 52 20"
+              fill="rgba(255,255,255,0.03)"
+            />
+          </g>
+        </svg>
+
+        <!-- hidden accessible text describing progress -->
+        <div class="bottle-visually-hidden" id="bottleA11y">
+          Progress: 0 percent
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -1127,6 +1362,53 @@
         const autosaveLight = document.getElementById("autosaveLight");
         const autosaveLabel = document.getElementById("autosaveLabel");
         const pickFolderBtn = document.getElementById("pickFolderBtn");
+
+        const bottleTooltip = document.getElementById("bottleTooltip");
+        const bottleA11y = document.getElementById("bottleA11y");
+        const waterRect = document.getElementById("waterRect");
+        const waves = document.getElementById("waves");
+
+        // create water gradient dynamically inside the SVG (fallback if not present)
+        (function ensureWaterGradient() {
+          const svg = document.getElementById("bottleSvg");
+          if (!svg) return;
+          const existing = svg.querySelector("#waterGradient");
+          if (existing) return;
+          const ns = "http://www.w3.org/2000/svg";
+          const defs =
+            svg.querySelector("defs") ||
+            svg.appendChild(document.createElementNS(ns, "defs"));
+          const grad = document.createElementNS(ns, "linearGradient");
+          grad.setAttribute("id", "waterGradient");
+          grad.setAttribute("x1", "0");
+          grad.setAttribute("y1", "0");
+          grad.setAttribute("x2", "0");
+          grad.setAttribute("y2", "1");
+          const s1 = document.createElementNS(ns, "stop");
+          s1.setAttribute("offset", "0%");
+          s1.setAttribute("stop-color", "rgba(34,197,94,0.22)");
+          const s2 = document.createElementNS(ns, "stop");
+          s2.setAttribute("offset", "100%");
+          s2.setAttribute("stop-color", "rgba(6,18,16,0.18)");
+          grad.appendChild(s1);
+          grad.appendChild(s2);
+          defs.appendChild(grad);
+        })();
+
+        // wave animation — small horizontal looping translation
+        function startWaveAnimation() {
+          let pos = 0;
+          const speed = 0.4; // px per frame
+          function tick() {
+            pos -= speed;
+            // loop when > -100 (we translate the waves group)
+            waves.style.transform = `translateX(${pos}px)`;
+            if (Math.abs(pos) > 100) pos = 0;
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+        startWaveAnimation();
 
         const GIFS = [
           "https://media.giphy.com/media/YRuFixSNWFVcXaxpmX/giphy.gif",
@@ -1310,6 +1592,9 @@
             completed + credited
           } of ${TOTAL_DAYS}`;
           updateGalleryBtn(pct);
+
+          // update bottle widget
+          updateBottle(pct);
         }
 
         function updateGalleryBtn(progressPct) {
@@ -2343,10 +2628,64 @@
             showToast("Saved folder removed");
           },
         };
+
+        /* ---------------------------
+           Bottle update function
+           --------------------------- */
+        // We'll map percent (0-100) to a Y coordinate in the SVG's coordinate system.
+        // The SVG viewBox height is 200. The bottle interior roughly spans y=44..168 (body),
+        // We'll clamp within those bounds.
+        function updateBottle(pct = null) {
+          try {
+            // calculate pct if not provided
+            if (pct === null) {
+              const completed = Object.keys(entries).length;
+              const credited = leavesUsed();
+              pct = Math.min(
+                100,
+                Math.round(((completed + credited) / TOTAL_DAYS) * 100)
+              );
+            }
+            // clamp
+            pct = Math.max(0, Math.min(100, Number(pct)));
+
+            // bottle interior range
+            const topY = 44; // top of body area in viewBox units
+            const bottomY = 168; // bottom inside
+            const bodyHeight = bottomY - topY; // ~124
+
+            // percent -> water top Y coordinate
+            const waterHeight = (pct / 100) * bodyHeight;
+            const waterTopY = bottomY - waterHeight;
+
+            // The waterRect covers entire width (0..100). We set its y so it starts where the water should begin.
+            // For smooth transition we set the 'y' attribute (CSS transition declared earlier for .water-rect).
+            if (waterRect) {
+              // round to 2 decimals
+              waterRect.setAttribute("y", Math.round(waterTopY * 100) / 100);
+              // height should be enough to fill remainder
+              waterRect.setAttribute(
+                "height",
+                Math.round((200 - waterTopY) * 100) / 100
+              );
+            }
+
+            // tooltip & a11y
+            if (bottleTooltip) bottleTooltip.textContent = pct + "% complete";
+            if (bottleA11y)
+              bottleA11y.textContent = "Progress: " + pct + " percent";
+          } catch (e) {
+            // fail silently — nothing catastrophic
+            console.warn("bottle update error", e);
+          }
+        }
+
+        // update bottle whenever relevant actions happen (we call from render/updateProgress already).
+        // Also allow hovering to show tooltip text (handled by CSS).
       })();
     </script>
 
-    <!-- Updated: smoother animation timings + 15 second rotation -->
+    <!-- Quote rotation (now: smooth fade every 8s, random start & shuffle order, avoid repeating last page-load quote) -->
     <script>
       (function () {
         const QUOTES_EXTRA = [
@@ -2375,54 +2714,174 @@
         const el = document.getElementById("motivationBox");
         if (!el) return;
 
-        // match to CSS transition (ms)
+        // transition duration in CSS is 620ms; keep JS timings slightly in sync
         const FADE_MS = 620;
-        const DISPLAY_INTERVAL_MS = 15000; // 15 seconds
+        const DISPLAY_INTERVAL_MS = 8000; // 8 seconds
 
-        let idx = -1;
-        let intervalId = null;
-        function showNext() {
-          idx = (idx + 1) % QUOTES_EXTRA.length;
-          // fade out
-          el.classList.remove("show");
-          // wait for fade out to complete (use slightly less than full transition for crispness)
-          setTimeout(() => {
-            // change text then fade in
-            el.textContent = QUOTES_EXTRA[idx];
-            el.classList.add("show");
-          }, Math.max(220, FADE_MS - 240));
+        // localStorage key to avoid repeating same quote on reload
+        const LAST_KEY = "aepp-last-motivation";
+
+        // Fisher-Yates shuffle
+        function shuffleArray(arr) {
+          const a = arr.slice();
+          for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+          }
+          return a;
         }
 
-        // show first (enter after a short micro-delay so CSS transition plays)
-        setTimeout(() => {
-          showNext();
-          // schedule repeating
-          intervalId = setInterval(showNext, DISPLAY_INTERVAL_MS);
-        }, 120);
+        // Build a shuffled sequence that does not start with the same quote as last page load (if possible)
+        function buildSequence() {
+          const last = localStorage.getItem(LAST_KEY) || null;
+          let seq = shuffleArray(QUOTES_EXTRA);
+          if (last && seq.length > 1 && seq[0] === last) {
+            // find a different first and swap
+            const altIdx = seq.findIndex((s) => s !== last);
+            if (altIdx > 0) {
+              const tmp = seq[0];
+              seq[0] = seq[altIdx];
+              seq[altIdx] = tmp;
+            }
+          }
+          // as a fallback, if only one quote or all same, it's fine
+          return seq;
+        }
 
-        // accessibility: pause rotation on focus/hover and resume on blur/mouseout
+        let seq = buildSequence();
+        let idx = 0;
+        let intervalId = null;
         let paused = false;
+
+        // show a particular text with fade out/in
+        function showText(txt) {
+          // fade out
+          el.classList.remove("show");
+          // after fade out duration, switch text and fade in
+          setTimeout(() => {
+            // use textContent (no HTML) to keep it simple
+            el.textContent = txt;
+            el.classList.add("show");
+          }, Math.max(180, FADE_MS - 240));
+        }
+
+        function startRotation() {
+          // show first right away (use slight micro-delay so CSS transition plays)
+          showText(seq[idx]);
+          // store first shown so next reload avoids it
+          try {
+            localStorage.setItem(LAST_KEY, seq[idx]);
+          } catch (e) {}
+          // schedule next changes
+          intervalId = setInterval(() => {
+            if (paused) return;
+            idx = (idx + 1) % seq.length;
+            showText(seq[idx]);
+            try {
+              localStorage.setItem(LAST_KEY, seq[idx]);
+            } catch (e) {}
+            // if we completed full loop, reshuffle sequence to keep subsequent cycles fresh
+            if (idx === seq.length - 1) {
+              seq = shuffleArray(QUOTES_EXTRA);
+              // ensure next cycle doesn't immediately repeat the last shown
+              if (seq[0] === localStorage.getItem(LAST_KEY) && seq.length > 1) {
+                const alt = seq.findIndex(
+                  (s) => s !== localStorage.getItem(LAST_KEY)
+                );
+                if (alt > 0) {
+                  [seq[0], seq[alt]] = [seq[alt], seq[0]];
+                }
+              }
+              idx = -1; // so the next interval advances to 0
+            }
+          }, DISPLAY_INTERVAL_MS);
+        }
+
+        // Pause/resume helpers
         function pauseRotation() {
           if (paused) return;
           paused = true;
-          if (intervalId) clearInterval(intervalId);
-          intervalId = null;
+          if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+          }
         }
         function resumeRotation() {
           if (!paused) return;
           paused = false;
-          if (intervalId) clearInterval(intervalId);
-          intervalId = setInterval(showNext, DISPLAY_INTERVAL_MS);
+          // restart interval (we'll advance to next after DISPLAY_INTERVAL_MS)
+          if (!intervalId) {
+            intervalId = setInterval(() => {
+              if (paused) return;
+              idx = (idx + 1) % seq.length;
+              showText(seq[idx]);
+              try {
+                localStorage.setItem(LAST_KEY, seq[idx]);
+              } catch (e) {}
+            }, DISPLAY_INTERVAL_MS);
+          }
         }
 
-        el.addEventListener("focus", pauseRotation);
-        el.addEventListener("blur", resumeRotation);
-        el.addEventListener("mouseover", pauseRotation);
-        el.addEventListener("mouseout", resumeRotation);
+        // Accessibility: pause on focus/hover, resume on blur/mouseout
+        el.addEventListener("focus", () => {
+          pauseRotation();
+        });
+        el.addEventListener("blur", () => {
+          resumeRotation();
+        });
+        el.addEventListener("mouseover", () => {
+          pauseRotation();
+        });
+        el.addEventListener("mouseout", () => {
+          resumeRotation();
+        });
 
-        // make it keyboard-focusable for accessibility (so screen readers can pause)
+        // Make focusable for keyboard users
         el.setAttribute("tabindex", "0");
+
+        // start after tiny delay so CSS can animate in
+        setTimeout(() => {
+          startRotation();
+        }, 120);
       })();
     </script>
-  </body>
+  <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
 </html>
